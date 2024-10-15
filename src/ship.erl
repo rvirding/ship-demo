@@ -9,10 +9,12 @@
 %% Management API.
 
 start(X, Y, St) ->
-    proc_lib:start(?MODULE, init, [X,Y,St]).
+    %% proc_lib:start(?MODULE, init, [X,Y,St]).
+    {ok,spawn(?MODULE, init, [X,Y,St])}.
 
 start_link(X, Y, St) ->
-    proc_lib:start_link(?MODULE, init, [X,Y,St]).
+    %% proc_lib:start_link(?MODULE, init, [X,Y,St]).
+    {ok,spawn_link(?MODULE, init, [X,Y,St])}.
 
 %% User API.
 
@@ -72,7 +74,7 @@ init(X, Y, St0) ->
     {_,St1} = luerl:call_function([this_ship,start], [], St0),
     {_,St2} = luerl:call_function([this_ship,set_pos], [X,Y], St1),
     {_,St3} = luerl:call_function([this_ship,set_speed], [0,0], St2),
-    proc_lib:init_ack({ok,self()}),
+    %% proc_lib:init_ack({ok,self()}),
     loop(St3, infinity, make_ref(), 0).		%Start with dummy tick ref
 
 %% loop(LuerlState, Tick, TickRef, TickCount) -> no_return().
