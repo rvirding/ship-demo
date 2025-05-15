@@ -16,7 +16,11 @@ The various ship types:
 
 **fly_ship** - These are blue and behave like flies. They fly to edge of the universe, sit there for a while then fly off.
 
-**attack_ship** - These ships zap and kill ships which they get close to.
+**flock_ship** - These ships tend to fly in flocks.
+
+**timid_ship** - These start of white and when they see a ship in the same sector they turn yellow and go backwards.
+
+**attack_ship** - These ships are orange zap and kill ships which they get close to.
 
 An example run:
 

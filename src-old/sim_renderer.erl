@@ -1,5 +1,3 @@
-%% -*- mode: erlang; indent-tabs-mode: nil -*-
-
 -module(sim_renderer).
 
 -export([start_link/2,start/2]).

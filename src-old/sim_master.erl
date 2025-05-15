@@ -1,5 +1,3 @@
-%% -*- mode: erlang; indent-tabs-mode: nil -*-
-
 -module(sim_master).
 
 -behaviour(gen_server).
@@ -58,18 +56,13 @@ init({Xsize,Ysize,N}) ->
     process_flag(trap_exit, true),
     {ok,_} = esdl_server:start_link(Xsize, Ysize),
     {ok,_} = sim_renderer:start_link(Xsize, Ysize),
-    %% io:format("sim_master: start renderer\n"),
     {ok,_} = sim_sound:start_link(),
-    %% io:format("sim_master: start sound\n"),
     {ok,_} = universe:start_link(Xsize, Ysize), %Start the universe
-    %% io:format("sim_master: start universe\n"),
     rand:seed_s(default,erlang:timestamp()),    %Seed the RNG
     Arr = ets:new(?TABLE, [named_table,protected]),
     St = init_lua(),                            %Get the Lua state
-    %% io:format("sim_master: init_lua\n"),
     lists:foreach(fun (I) ->
                           {ok,S} = start_ship(I, Xsize, Ysize, St),
-                          %% io:format("sim_master: start ship ~p\n",[I]),
                           ets:insert(Arr, {I,S})
                   end, lists:seq(1, N)),
     {ok,#st{xsize=Xsize,ysize=Ysize,n=N,arr=Arr,st=St}}.
@@ -119,14 +112,13 @@ init_lua() ->
                       {sound,luerl_sound},
                       {ship,luerl_ship}]),
     %% Set the default ship.
-    {ok,_,L2} = luerl:do("this_ship = require 'default_ship'", L1),
+    {_,L2} = luerl:do("this_ship = require 'default_ship'", L1),
     L2.
 
-load(Keys, Module, St0) ->
-    {Lks,St1} = luerl:encode_list(Keys, St0),
+load(Key, Module, St0) ->
+    {Lk,St1} = luerl:encode_list(Key, St0),
     {T,St2} = Module:install(St1),
-    {ok,St3} = luerl:set_table_keys(Lks, T, St2),
-    St3.
+    luerl:set_table1(Lk, T, St2).
 
 start_ship(_I, Xsize, Ysize, St) ->
     %% Spread out the ships over the whole space.

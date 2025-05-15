@@ -1,0 +1,18 @@
+{application, ship_demo,
+ [{description, "Ship demo of Luerl"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {ship_demo_app, []}},
+  {applications,
+   [kernel,
+    stdlib,
+    luerl,
+    esdl2
+   ]},
+  {env,[]},
+  {modules, []},
+  {mod, {ship_demo_app,[]}},
+
+  {licenses, ["Apache 2.0"]},
+  {links, []}
+ ]}.

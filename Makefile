@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 #  limitations under the License.
 
-SRCDIR        =./src
-BEAMDIR       =./ebin
+SRCDIR        ?= ./src
+BEAMDIR       = ./ebin
 ERL_SOURCES  := $(wildcard $(SRCDIR)/*.erl)
 XRL_SOURCES  := $(wildcard $(SRCDIR)/*.xrl)
 YRL_SOURCES  := $(wildcard $(SRCDIR)/*.yrl)

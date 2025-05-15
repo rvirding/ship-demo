@@ -4,6 +4,7 @@
 *.plt
 erl_crash.dump
 .concrete/DEV_MODE
+.DS_Store
 
 # rebar 2.x
 .rebar
@@ -13,5 +14,6 @@ deps
 
 # rebar 3
 .rebar3
+rebar.lock
 _build/
 _checkouts/

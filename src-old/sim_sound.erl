@@ -1,5 +1,3 @@
-%% -*- mode: erlang; indent-tabs-mode: nil -*-
-
 -module(sim_sound).
 
 -export([start_link/0,start/0,stop/0]).
